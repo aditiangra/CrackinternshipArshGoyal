@@ -1,0 +1,116 @@
+https://leetcode.com/problems/set-matrix-zeroes/
+
+Brute force approach
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int t=INT_MAX;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    int ind=i;
+                    for(int k=0;k<m;k++)
+                    {
+                        if(matrix[ind][k]!=0)matrix[ind][k]=t;
+                    }
+                     ind=j;
+                    for(int k=0;k<n;k++)
+                    {
+                        if(matrix[k][ind]!=0)matrix[k][ind]=t;
+                    }
+                }
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(matrix[i][j]==t)matrix[i][j]=0;
+            }
+        }
+    }
+};
+
+
+
+
+
+Better Approach
+ int m=v.size();
+        int n=v[0].size();
+        int row[m];
+        int col[n];
+        
+        for(int i=0;i<m;i++)
+            row[i]=false;
+        
+        
+        for(int i=0;i<n;i++)
+            col[i]=false;
+        
+         for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(v[i][j]==0)
+                {
+                    row[i]=true;
+                    col[j]=true;
+                }
+            }
+         }
+        
+         for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if( row[i]==true  ||  col[j]==true)
+                {
+                    v[i][j]=0;
+                }
+            }
+         }
+        
+        
+        
+        Optimal Approach
+        
+        class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int col0=1;
+        int row=matrix.size();
+        int col=matrix[0].size();
+        for(int i=0;i<row;i++)
+        {
+            if(matrix[i][0]==0)col0=0;
+            for(int j=1;j<col;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    matrix[i][0]=0;
+                    matrix[0][j]=0;
+                }
+            }
+        }
+        for(int i=row-1;i>=0;i--)
+        {
+            for(int j=col-1;j>=0;j--)
+            {
+                if(matrix[i][0]==0  || matrix[0][j]==0)
+                {
+                    matrix[i][j]=0;
+                }
+            }
+            if(col0==0)
+            {
+                matrix[i][0]=0;
+            }
+        }
+    }
+};
