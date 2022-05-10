@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
+vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+        // Code here
+        vector<bool>vis(V,false);
+        queue<int>q;
+        q.push(0);
+        vis[0]=true;
+        vector<int> ans;
+        while(q.empty()==false)
+        {
+            int node=q.front();
+            q.pop();
+            ans.push_back(node);
+            for(auto it:adj[node])
+            {
+                if(vis[it]==false)
+                {
+                    q.push(it);
+                    vis[it]=true;
+                }
+            }
+        }
+        return ans;
+    }
