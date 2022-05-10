@@ -1,0 +1,22 @@
+https://practice.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
+
+ vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        // Code here
+        vector<int> ans;
+        vector<bool>visited(V,false);
+        dfs(ans,visited,V,adj,0);
+        return ans;
+    }
+    void dfs(vector<int>&ans,vector<bool>&visited,int v,vector<int>adj[],int node)
+    {
+        ans.push_back(node);
+        visited[node]=true;
+        for(auto it:adj[node])
+        {
+            if(visited[it]==false)
+            {
+                dfs(ans,visited,v,adj,it);
+            }
+        }
+    }
+};
