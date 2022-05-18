@@ -1,0 +1,49 @@
+https://leetcode.com/problems/max-value-of-equation/
+
+Code :)
+Brute force approach
+Gives Tle in 60th test case
+class Solution {
+public:
+    int findMaxValueOfEquation(vector<vector<int>>& points, int k) {
+        int n=points.size();
+        int ans=INT_MIN;
+        for(auto it:points)
+        {
+            for(auto it2:points)
+            {
+                int val=abs(it[0]-it2[0]);
+                if(it!=it2 and val<=k)
+                {
+                    ans=max(ans,it[1]+it2[1]+val);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+Optimized approach:)
+class Solution {
+public:
+    int findMaxValueOfEquation(vector<vector<int>>& points, int k) {
+        //max heap to store numbers greater than k//
+        priority_queue<pair<int,int>>pq;
+        int res=INT_MIN;
+        for (auto p:points)
+        {
+            while(pq.empty()==false and p[0]-pq.top().second>k)
+            {
+                pq.pop();
+            } 
+            if(pq.empty()==false)
+            {
+                res=max(res,pq.top().first+p[0]+p[1]);
+            }
+                
+                pq.push({p[1]-p[0],p[0]});
+            
+        }
+        return res;
+    }
+};
