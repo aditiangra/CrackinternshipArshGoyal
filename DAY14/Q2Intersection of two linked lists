@@ -1,0 +1,67 @@
+https://leetcode.com/problems/intersection-of-two-linked-lists/
+https://practice.geeksforgeeks.org/problems/intersection-of-two-sorted-linked-lists/1#
+
+SORTED LINKED LISTS
+Node* findIntersection(Node* head1, Node* head2)
+{
+    // Your Code Here
+        Node* ptr1=head1;
+        Node* ptr2=head2;
+        Node* head=nullptr;
+        Node* curr=nullptr;
+        while(ptr1 and ptr2)
+        {
+            if(ptr1->data==ptr2->data)
+            {
+                if(head==nullptr)
+                {
+                    Node* t=new Node(ptr1->data);
+                    head=t;
+                    curr=t;
+                }
+                else
+                {
+                    Node* t=new Node(ptr1->data);
+                    curr->next=t;
+                    curr=curr->next;
+                }
+                ptr1=ptr1->next;
+                ptr2=ptr2->next;
+            }
+            else if(ptr1->data>ptr2->data)
+            {
+                ptr2=ptr2->next;
+            }
+            else
+            {
+                ptr1=ptr1->next;
+            }
+        }
+        return head;
+}
+
+
+//UNSORTED LINKED LISTS//
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* tempA=headA;
+        ListNode* tempB=headB;
+        while(tempA!=tempB)
+        {
+            if(tempA==nullptr)tempA=headB;
+            else tempA=tempA->next;
+            if(tempB==nullptr)tempB=headA;
+            else tempB=tempB->next;
+        }
+        return tempA;
+    }
+};
